@@ -53,7 +53,7 @@ void generate_json(const char *directory, const char *output_file) {
             first = 0;
 
             // Write JSON entry
-            fprintf(json_file, "  {\n    \"name\": \"./src/"\"%s\",\n    \"url\": \"%s\"\n  }",
+            fprintf(json_file, "  {\n    \"name\": \"./src/""%s\",\n    \"url\": \"%s\"\n  }",
                     entry->d_name, url);
         }
     }
