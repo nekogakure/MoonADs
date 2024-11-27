@@ -30,9 +30,9 @@ async function loadAds() {
         // iframeを作成
         const iframe = document.createElement('iframe');
         iframe.src = randomAd.name; // ランダムに選ばれた画像のURL
-        iframe.style.border = "none";
+        iframe.style.border = "0";
         iframe.style.width = "480px";
-        iframe.style.height = "360px";
+        iframe.style.height = "360px"
 
         // クリックで新しいタブを開く
         iframe.addEventListener('click', () => {
