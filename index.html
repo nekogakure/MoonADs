@@ -24,12 +24,12 @@ async function loadAds() {
         statusDiv.innerHTML = "JSON loaded successfully: " + JSON.stringify(ads);
 
         // ランダムに広告を選択
-        const randomAd = ".src/" + ads[Math.floor(Math.random() * ads.length)];
+        const randomAd = ads[Math.floor(Math.random() * ads.length)];
         statusDiv.innerHTML += `<br>Random Ad: ${JSON.stringify(randomAd)}`;
 
         // iframeを作成
         const iframe = document.createElement('iframe');
-        iframe.src = randomAd.name; // ランダムに選ばれた画像のURL
+        iframe.src = ".src/" + randomAd.name; // ランダムに選ばれた画像のURL
         iframe.style.border = "none";
         iframe.style.width = "480px";
         iframe.style.height = "360px";
