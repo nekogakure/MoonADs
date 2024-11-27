@@ -10,18 +10,22 @@
 
     <script>
 async function loadAds() {
+    const statusDiv = document.createElement('div');
+    document.body.appendChild(statusDiv);
+
     try {
         const response = await fetch('./data.json'); // JSONファイルを読み込み
-        const ads = await response.json();
+        if (!response.ok) {
+            statusDiv.innerHTML = "Failed to load JSON file.";
+            return;
+        }
 
-        // デバッグ: JSON内容を確認
-        console.log(ads);
+        const ads = await response.json();
+        statusDiv.innerHTML = "JSON loaded successfully: " + JSON.stringify(ads);
 
         // ランダムに広告を選択
         const randomAd = ads[Math.floor(Math.random() * ads.length)];
-
-        // デバッグ: 選ばれた広告を確認
-        console.log(randomAd);
+        statusDiv.innerHTML += `<br>Random Ad: ${JSON.stringify(randomAd)}`;
 
         // iframeを作成
         const iframe = document.createElement('iframe');
@@ -37,26 +41,11 @@ async function loadAds() {
 
         document.getElementById('ad-container').appendChild(iframe);
     } catch (error) {
-        console.error("Error loading ads:", error);
+        statusDiv.innerHTML = "Error: " + error.message;
     }
 }
 
 loadAds();
-
-                // クリック時に新しいタブで開くよう設定
-                iframe.addEventListener('load', () => {
-                    iframe.contentWindow.document.body.addEventListener('click', () => {
-                        window.open(randomAd.url, '_blank');
-                    });
-                });
-
-                document.getElementById('ad-container').appendChild(iframe);
-            } catch (error) {
-                console.error("Error loading ads:", error);
-            }
-        }
-
-        loadAds();
     </script>
 </body>
 </html>
