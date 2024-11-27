@@ -9,20 +9,39 @@
     <div id="ad-container"></div>
 
     <script>
-        async function loadAds() {
-            try {
-                const response = await fetch('./data.json'); // Cで生成されたJSONファイル
-                const ads = await response.json();
+async function loadAds() {
+    try {
+        const response = await fetch('./data.json'); // JSONファイルを読み込み
+        const ads = await response.json();
 
-                // ランダムで1つ選択
-                const randomAd = ads[Math.floor(Math.random() * ads.length)];
+        // デバッグ: JSON内容を確認
+        console.log(ads);
 
-                // iframeを作成
-                const iframe = document.createElement('iframe');
-                iframe.src = randomAd.url; // .urlのリンク
-                iframe.style.border = "none";
-                iframe.style.width = "480px";
-                iframe.style.height = "360px";
+        // ランダムに広告を選択
+        const randomAd = ads[Math.floor(Math.random() * ads.length)];
+
+        // デバッグ: 選ばれた広告を確認
+        console.log(randomAd);
+
+        // iframeを作成
+        const iframe = document.createElement('iframe');
+        iframe.src = randomAd.name; // ランダムに選ばれた画像のURL
+        iframe.style.border = "none";
+        iframe.style.width = "300px";
+        iframe.style.height = "250px";
+
+        // クリックで新しいタブを開く
+        iframe.addEventListener('click', () => {
+            window.open(randomAd.url, '_blank');
+        });
+
+        document.getElementById('ad-container').appendChild(iframe);
+    } catch (error) {
+        console.error("Error loading ads:", error);
+    }
+}
+
+loadAds();
 
                 // クリック時に新しいタブで開くよう設定
                 iframe.addEventListener('load', () => {
