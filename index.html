@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoonADs</title>
+</head>
+<body>
+    <div id="ad-container"></div>
+
+    <script>
+        async function loadAds() {
+            try {
+                const response = await fetch('./data.json'); // Cで生成されたJSONファイル
+                const ads = await response.json();
+
+                // ランダムで1つ選択
+                const randomAd = ads[Math.floor(Math.random() * ads.length)];
+
+                // iframeを作成
+                const iframe = document.createElement('iframe');
+                iframe.src = randomAd.url; // .urlのリンク
+                iframe.style.border = "none";
+                iframe.style.width = "300px";
+                iframe.style.height = "250px";
+
+                // クリック時に新しいタブで開くよう設定
+                iframe.addEventListener('load', () => {
+                    iframe.contentWindow.document.body.addEventListener('click', () => {
+                        window.open(randomAd.url, '_blank');
+                    });
+                });
+
+                document.getElementById('ad-container').appendChild(iframe);
+            } catch (error) {
+                console.error("Error loading ads:", error);
+            }
+        }
+
+        loadAds();
+    </script>
+</body>
+</html>
