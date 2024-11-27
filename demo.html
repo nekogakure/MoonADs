@@ -1,1 +1,9 @@
-<iframe id="inlineFrameExample" title="Inline Frame Example" width="480" height="360" src=./index.html style=""></iframe>
+<iframe id="inlineFrameExample" title="Inline Frame Example" width="480" height="360" src=./index.html style="
+img {
+    width: 480px;
+    height: 360px;
+    object-fit: cover; /* アスペクト比を崩さずに画像をトリミング */
+    display: block;    /* 余分な余白を防ぐため */
+    margin: 0 auto;
+}
+"></iframe>
